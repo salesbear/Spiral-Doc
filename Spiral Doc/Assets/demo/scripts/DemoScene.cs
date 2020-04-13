@@ -18,6 +18,7 @@ public class DemoScene : MonoBehaviour
 	private CharacterController2D _controller;
 	private Animator _animator;
 	private RaycastHit2D _lastControllerColliderHit;
+    [SerializeField]
 	private Vector3 _velocity;
 
 
@@ -110,7 +111,7 @@ public class DemoScene : MonoBehaviour
 
 		// if holding down bump up our movement amount and turn off one way platform detection for a frame.
 		// this lets us jump down through one way platforms
-		if( _controller.isGrounded && Input.GetKey( KeyCode.DownArrow ) )
+		if( _controller.isGrounded && Input.GetKey( KeyCode.DownArrow ) && !Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			_velocity.y *= 3f;
 			_controller.ignoreOneWayPlatformsThisFrame = true;
