@@ -204,9 +204,11 @@ MonoBehaviour:
   gravity: -25
   runSpeed: 8
   groundDamping: 6
-  inAirDamping: 5
+  inAirDamping: 4
   jumpHeight: 3
-  fall_multiplier: 1.3
+  fallMultiplier: 1.5
+  wallJumpSpeed: 15
+  wallJumpHeight: 2
   _velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2896890
 MonoBehaviour:

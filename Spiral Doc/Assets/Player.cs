@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     public float groundDamping = 6f; // how fast do we change direction? higher means faster
     public float inAirDamping = 5f;
     public float jumpHeight = 3f;
-    public float fall_multiplier = 1.5f; // increases fall speed after the peak of the jump
+    public float fallMultiplier = 1.5f; // increases fall speed after the peak of the jump
+    public float wallJumpSpeed = 8f;
+    public float wallJumpHeight = 2f;
 
     [HideInInspector]
     private float normalizedHorizontalSpeed = 0;
@@ -108,8 +110,16 @@ public class Player : MonoBehaviour
         // if we're against a wall, we can wall jump
         else if (Input.GetButtonDown("Jump") && (_controller.collisionState.right || _controller.collisionState.left))
         {
-            //TODO: Implement wall jump so we can't gain height while wall jumping
-            _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+            _velocity.y = Mathf.Sqrt(2f * wallJumpHeight * -gravity);
+            if (_controller.collisionState.right)
+            {
+                _velocity.x = -wallJumpSpeed;
+            }
+            else
+            {
+                _velocity.x = wallJumpSpeed;
+            }
+            //Change this to a wall jump animation
             _animator.Play(Animator.StringToHash("Jump"));
         }
 
@@ -126,7 +136,7 @@ public class Player : MonoBehaviour
         //make fall faster than jump up to avoid floatiness
         else
         {
-            _velocity.y += gravity * Time.deltaTime * fall_multiplier;
+            _velocity.y += gravity * Time.deltaTime * fallMultiplier;
         }
         
 
